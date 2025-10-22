@@ -74,9 +74,17 @@ function Layout() {
                         <Route path="/position-test-api" element={<PositionTestApi />} />
                         <Route path="/rotation-test-api" element={<RotationTestApi />} />
                         <Route path="/checkout" element={<Checkout />} />
-                        {/* Default route - redirect to designer */}
-                        <Route path="/" element={<Navigate to="/tshirt-designer" replace />} />
-                        <Route path="*" element={<Navigate to="/tshirt-designer" replace />} />
+                        {/* Default route - redirect based on user role */}
+                        <Route path="/" element={
+                            user?.role === "ADMIN" ? 
+                            <Navigate to="/admin-dashboard" replace /> : 
+                            <Navigate to="/tshirt-designer" replace />
+                        } />
+                        <Route path="*" element={
+                            user?.role === "ADMIN" ? 
+                            <Navigate to="/admin-dashboard" replace /> : 
+                            <Navigate to="/tshirt-designer" replace />
+                        } />
                     </>
                 )}
             </Routes>

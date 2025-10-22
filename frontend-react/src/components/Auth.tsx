@@ -33,15 +33,10 @@ const Auth: React.FC<AuthProps> = ({ onAuthSuccess }) => {
         window.location.href = '/'; // Redirect to home
     };
 
-    // If user is admin, show admin dashboard
-    if (user && user.role === 'ADMIN') {
-        return <AdminDashboard onLogout={handleLogout} />;
-    }
-
-    // For customers, App.tsx routing will handle the redirect
-    // We don't render anything here to avoid showing forms
-    if (user && user.role === 'CUSTOMER') {
-        return null;
+    // For logged in users, let App.tsx routing handle the navigation
+    // Auth component should only handle the login/register flow
+    if (user) {
+        return null; // Let App.tsx routing take over
     }
 
     // Show login/register forms

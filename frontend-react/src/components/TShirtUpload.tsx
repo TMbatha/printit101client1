@@ -29,6 +29,7 @@ const TShirtUpload: React.FC<TShirtUploadProps> = ({ onContinue }) => {
     const [description, setDescription] = useState<string>('');
     const [quantity, setQuantity] = useState<number>(1);
     const [notification, setNotification] = useState<string>('');
+    const [showSizeChart, setShowSizeChart] = useState<boolean>(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const colors: Color[] = [
@@ -383,18 +384,53 @@ const TShirtUpload: React.FC<TShirtUploadProps> = ({ onContinue }) => {
 
                         {/* Size Selection */}
                         <div style={{ marginBottom: '2rem' }}>
-                            <h3 style={{
-                                fontSize: '1.25rem',
-                                fontWeight: 'bold',
-                                color: '#111827',
-                                marginBottom: '1.5rem',
+                            <div style={{
                                 display: 'flex',
+                                justifyContent: 'space-between',
                                 alignItems: 'center',
-                                gap: '0.75rem'
+                                marginBottom: '1.5rem'
                             }}>
-                                <Package style={{ height: '1.5rem', width: '1.5rem', color: '#2563eb' }} />
-                                Size
-                            </h3>
+                                <h3 style={{
+                                    fontSize: '1.25rem',
+                                    fontWeight: 'bold',
+                                    color: '#111827',
+                                    margin: 0,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.75rem'
+                                }}>
+                                    <Package style={{ height: '1.5rem', width: '1.5rem', color: '#2563eb' }} />
+                                    Size
+                                </h3>
+                                <button
+                                    onClick={() => setShowSizeChart(true)}
+                                    style={{
+                                        padding: '0.5rem 1rem',
+                                        background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
+                                        color: 'white',
+                                        border: 'none',
+                                        borderRadius: '0.5rem',
+                                        cursor: 'pointer',
+                                        fontWeight: '500',
+                                        fontSize: '0.875rem',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '0.5rem',
+                                        transition: 'all 0.2s ease',
+                                        boxShadow: '0 4px 15px rgba(59, 130, 246, 0.3)'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.transform = 'translateY(-2px)';
+                                        e.currentTarget.style.boxShadow = '0 6px 20px rgba(59, 130, 246, 0.4)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.transform = 'translateY(0px)';
+                                        e.currentTarget.style.boxShadow = '0 4px 15px rgba(59, 130, 246, 0.3)';
+                                    }}
+                                >
+                                    Size Chart
+                                </button>
+                            </div>
                             <div style={{
                                 display: 'grid',
                                 gridTemplateColumns: 'repeat(3, 1fr)',
@@ -602,6 +638,241 @@ const TShirtUpload: React.FC<TShirtUploadProps> = ({ onContinue }) => {
                     </div>
                 </div>
             </main>
+
+            {/* Size Chart Modal */}
+            {showSizeChart && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                    backdropFilter: 'blur(4px)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 1000,
+                    padding: '1rem'
+                }}>
+                    <div style={{
+                        background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+                        borderRadius: '20px',
+                        width: '100%',
+                        maxWidth: '900px',
+                        maxHeight: '90vh',
+                        overflow: 'hidden',
+                        boxShadow: '0 25px 50px rgba(0, 0, 0, 0.25)',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        position: 'relative'
+                    }}>
+                        {/* Modal Header */}
+                        <div style={{
+                            padding: '2rem',
+                            borderBottom: '1px solid #e2e8f0',
+                            background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
+                            color: 'white'
+                        }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <div>
+                                    <h2 style={{
+                                        margin: 0,
+                                        fontSize: '24px',
+                                        fontWeight: '700',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '0.75rem'
+                                    }}>
+                                        Size Chart - Oversized T-Shirts
+                                    </h2>
+                                    <p style={{
+                                        margin: '0.5rem 0 0 0',
+                                        fontSize: '14px',
+                                        opacity: 0.9
+                                    }}>
+                                        Find your perfect fit with our detailed size guide
+                                    </p>
+                                </div>
+                                <button
+                                    onClick={() => setShowSizeChart(false)}
+                                    style={{
+                                        background: 'rgba(255, 255, 255, 0.2)',
+                                        color: 'white',
+                                        border: 'none',
+                                        borderRadius: '50%',
+                                        width: '40px',
+                                        height: '40px',
+                                        cursor: 'pointer',
+                                        fontSize: '18px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        transition: 'all 0.2s ease'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.3)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+                                    }}
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Size Chart Table */}
+                        <div style={{
+                            padding: '2rem',
+                            overflowY: 'auto',
+                            maxHeight: 'calc(90vh - 120px)'
+                        }}>
+                            <div style={{
+                                background: 'rgba(255, 255, 255, 0.8)',
+                                borderRadius: '12px',
+                                overflow: 'hidden',
+                                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)'
+                            }}>
+                                <table style={{ 
+                                    width: '100%', 
+                                    borderCollapse: 'collapse',
+                                    fontSize: '14px'
+                                }}>
+                                    <thead>
+                                        <tr style={{ 
+                                            background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
+                                            fontWeight: '600',
+                                            color: '#374151'
+                                        }}>
+                                            <th style={{ 
+                                                padding: '1rem', 
+                                                textAlign: 'left',
+                                                borderBottom: '2px solid #e2e8f0'
+                                            }}>Size</th>
+                                            <th style={{ 
+                                                padding: '1rem', 
+                                                textAlign: 'center',
+                                                borderBottom: '2px solid #e2e8f0'
+                                            }}>XS</th>
+                                            <th style={{ 
+                                                padding: '1rem', 
+                                                textAlign: 'center',
+                                                borderBottom: '2px solid #e2e8f0'
+                                            }}>S</th>
+                                            <th style={{ 
+                                                padding: '1rem', 
+                                                textAlign: 'center',
+                                                borderBottom: '2px solid #e2e8f0'
+                                            }}>M</th>
+                                            <th style={{ 
+                                                padding: '1rem', 
+                                                textAlign: 'center',
+                                                borderBottom: '2px solid #e2e8f0'
+                                            }}>L</th>
+                                            <th style={{ 
+                                                padding: '1rem', 
+                                                textAlign: 'center',
+                                                borderBottom: '2px solid #e2e8f0'
+                                            }}>XL</th>
+                                            <th style={{ 
+                                                padding: '1rem', 
+                                                textAlign: 'center',
+                                                borderBottom: '2px solid #e2e8f0'
+                                            }}>XXL</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
+                                            <td style={{ 
+                                                padding: '1rem', 
+                                                fontWeight: '600',
+                                                background: 'rgba(59, 130, 246, 0.05)',
+                                                color: '#374151'
+                                            }}>Shoulder</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>20</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>20.5</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>21.5</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>21.5</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>22</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>22.5</td>
+                                        </tr>
+                                        <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
+                                            <td style={{ 
+                                                padding: '1rem', 
+                                                fontWeight: '600',
+                                                background: 'rgba(59, 130, 246, 0.05)',
+                                                color: '#374151'
+                                            }}>Chest</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>50</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>53.6</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>56</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>56.05</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>59</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>61.05</td>
+                                        </tr>
+                                        <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
+                                            <td style={{ 
+                                                padding: '1rem', 
+                                                fontWeight: '600',
+                                                background: 'rgba(59, 130, 246, 0.05)',
+                                                color: '#374151'
+                                            }}>Sleeve Length</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>20</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>23</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>24</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>24.8</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>25</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>25.4</td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ 
+                                                padding: '1rem', 
+                                                fontWeight: '600',
+                                                background: 'rgba(59, 130, 246, 0.05)',
+                                                color: '#374151'
+                                            }}>Front Length</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>67</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>70.5</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>73.5</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>74.5</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>77</td>
+                                            <td style={{ padding: '1rem', textAlign: 'center' }}>78</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div style={{
+                                marginTop: '1.5rem',
+                                padding: '1rem',
+                                background: 'rgba(59, 130, 246, 0.05)',
+                                borderRadius: '8px',
+                                borderLeft: '4px solid #3b82f6'
+                            }}>
+                                <h4 style={{
+                                    margin: '0 0 0.5rem 0',
+                                    color: '#1e40af',
+                                    fontSize: '14px',
+                                    fontWeight: '600'
+                                }}>
+                                    Sizing Notes:
+                                </h4>
+                                <p style={{
+                                    margin: 0,
+                                    fontSize: '13px',
+                                    color: '#374151',
+                                    lineHeight: '1.5'
+                                }}>
+                                    • All measurements are in centimeters<br/>
+                                    • Oversized fit designed for comfort<br/>
+                                    • For exact fit, measure against existing garment<br/>
+                                    • Measurements may vary by ±1cm due to manufacturing tolerance
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

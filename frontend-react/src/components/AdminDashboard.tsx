@@ -70,7 +70,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
         const filtered = customers.filter((c) =>
             `${c.firstName} ${c.lastName}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
             c.userName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            c.contact.email.toLowerCase().includes(searchTerm.toLowerCase())
+            (c.contact && c.contact.email && c.contact.email.toLowerCase().includes(searchTerm.toLowerCase()))
         );
         setMessage(`Found ${filtered.length} customers matching "${searchTerm}"`);
         setTimeout(() => setMessage(""), 3000);
@@ -160,7 +160,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
     const filteredCustomers = customers.filter((c) =>
         `${c.firstName} ${c.lastName}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
         c.userName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        c.contact.email.toLowerCase().includes(searchTerm.toLowerCase())
+        (c.contact && c.contact.email && c.contact.email.toLowerCase().includes(searchTerm.toLowerCase()))
     );
 
     return (
@@ -663,7 +663,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                                                     gap: "0.5rem"
                                                 }}>
                                                     <span>📧</span>
-                                                    {c.contact.email}
+                                                    {c.contact?.email || 'No email'}
                                                 </div>
                                                 <div style={{
                                                     fontSize: "14px",
@@ -673,7 +673,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                                                     gap: "0.5rem"
                                                 }}>
                                                     <span>📱</span>
-                                                    {c.contact.phoneNumber}
+                                                    {c.contact?.phoneNumber || 'No phone'}
                                                 </div>
                                             </div>
                                         </td>
