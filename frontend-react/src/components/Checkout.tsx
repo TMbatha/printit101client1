@@ -170,7 +170,7 @@ export const Checkout: React.FC = () => {
                     cursor: loading || cart.length === 0 ? 'not-allowed' : 'pointer'
                 }}
             >
-                {loading ? 'Placing Order...' : 'Place Order'}
+                {loading ? 'Confirming Order...' : 'Confirm Order'}
             </button>
         </div>
 </>
