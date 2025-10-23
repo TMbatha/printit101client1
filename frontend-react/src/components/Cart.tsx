@@ -17,7 +17,7 @@ export const Cart: React.FC = () => {
                 onClick={() => setIsOpen(true)}
                 style={{
                     position: 'fixed',
-                    top: '1rem',
+                    top: '5rem', // Changed from '1rem' to '5rem'
                     right: '1rem',
                     zIndex: 60,
                     background: 'linear-gradient(to right, #2563eb, #9333ea)',
